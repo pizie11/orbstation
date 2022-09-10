@@ -12,7 +12,7 @@ Doesn't work on other aliens/AI.*/
 	background_icon_state = "bg_alien"
 	icon_icon = 'icons/mob/actions/actions_xeno.dmi'
 	button_icon_state = "spell_default"
-	check_flags = AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS
 	melee_cooldown_time = 0 SECONDS
 
 	/// How much plasma this action uses.
@@ -244,11 +244,7 @@ Doesn't work on other aliens/AI.*/
 	plasma_cost = 50
 
 /datum/action/cooldown/alien/acid/neurotoxin/IsAvailable()
-	if(owner.is_muzzled())
-		return FALSE
-	if(!isturf(owner.loc))
-		return FALSE
-	return ..()
+	return ..() && isturf(owner.loc)
 
 /datum/action/cooldown/alien/acid/neurotoxin/set_click_ability(mob/on_who)
 	. = ..()

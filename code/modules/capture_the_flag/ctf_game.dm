@@ -178,21 +178,8 @@
 #define CTF_LOADING_LOADING 1
 #define CTF_LOADING_LOADED 2
 
-/proc/toggle_id_ctf(user, activated_id, automated = FALSE, unload = FALSE)
+/proc/toggle_id_ctf(user, activated_id, automated = FALSE)
 	var/static/loading = CTF_LOADING_UNLOADED
-	if(unload == TRUE)
-		log_admin("[key_name_admin(user)] is attempting to unload CTF.")
-		message_admins("[key_name_admin(user)] is attempting to unload CTF.")
-		if(loading == CTF_LOADING_UNLOADED)
-			to_chat(user, span_warning("CTF cannot be unloaded if it was not loaded in the first place"))
-			return
-		to_chat(user, span_warning("CTF is being unloaded"))
-		for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
-			CTF.unload()
-		log_admin("[key_name_admin(user)] has unloaded CTF.")
-		message_admins("[key_name_admin(user)] has unloaded CTF.")
-		loading = CTF_LOADING_UNLOADED
-		return
 	switch (loading)
 		if (CTF_LOADING_UNLOADED)
 			if (isnull(GLOB.ctf_spawner))
@@ -202,10 +189,7 @@
 			to_chat(user, span_notice("Loading CTF..."))
 
 			loading = CTF_LOADING_LOADING
-			if(!GLOB.ctf_spawner.load_map(user))
-				to_chat(user, span_warning("CTF loading was cancelled"))
-				loading = CTF_LOADING_UNLOADED
-				return
+			GLOB.ctf_spawner.load_map()
 			loading = CTF_LOADING_LOADED
 		if (CTF_LOADING_LOADING)
 			to_chat(user, span_warning("CTF is loading!"))
@@ -461,12 +445,18 @@
 			for(var/obj/item/ctf/W in competitor)
 				competitor.dropItemToGround(W)
 			competitor.dust()
-	control_point_reset()
+	for(var/obj/machinery/control_point/control in GLOB.machines)
+		control.icon_state = "dominator"
+		control.controlling = null
 	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
 		if(CTF.game_id != game_id)
 			continue
 		if(CTF.ctf_enabled == TRUE)
-			machine_reset(CTF)
+			CTF.points = 0
+			CTF.control_points = 0
+			CTF.ctf_enabled = FALSE
+			CTF.team_members = list()
+			CTF.arena_reset = FALSE
 
 /obj/machinery/capture_the_flag/proc/toggle_ctf()
 	if(!ctf_enabled)
@@ -486,28 +476,17 @@
 
 	notify_ghosts("[name] has been activated!", source = src, action=NOTIFY_ORBIT, header = "CTF has been activated")
 
-/obj/machinery/capture_the_flag/proc/machine_reset(obj/machinery/capture_the_flag/CTF)
-	CTF.points = 0
-	CTF.control_points = 0
-	CTF.ctf_enabled = FALSE
-	CTF.team_members = list()
-	CTF.arena_reset = FALSE
-
-/obj/machinery/capture_the_flag/proc/control_point_reset()
-	for(var/obj/machinery/control_point/control in GLOB.machines)
-		control.icon_state = "dominator"
-		control.controlling = null
-
-/obj/machinery/capture_the_flag/proc/unload()
+/obj/machinery/capture_the_flag/proc/reset_the_arena()
 	if(!ctf_landmark)
 		return
 
 	if(ctf_landmark == GLOB.ctf_spawner)
-		stop_ctf()
 		new /obj/effect/landmark/ctf(get_turf(GLOB.ctf_spawner))
 
 
 /obj/machinery/capture_the_flag/proc/stop_ctf()
+	ctf_enabled = FALSE
+	arena_reset = FALSE
 	var/area/A = get_area(src)
 	for(var/_competitor in GLOB.mob_living_list)
 		var/mob/living/competitor = _competitor
@@ -516,8 +495,7 @@
 	team_members.Cut()
 	spawned_mobs.Cut()
 	recently_dead_ckeys.Cut()
-	control_point_reset()
-	machine_reset(src)
+	reset_the_arena()
 
 /obj/machinery/capture_the_flag/proc/instagib_mode()
 	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)

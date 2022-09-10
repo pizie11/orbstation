@@ -160,23 +160,21 @@
 /turf/open/indestructible/airblock
 	icon_state = "bluespace"
 	blocks_air = TRUE
-	init_air = FALSE
 	baseturfs = /turf/open/indestructible/airblock
 
-/turf/open/Initalize_Atmos(time)
+/turf/open/Initalize_Atmos(times_fired)
 	excited = FALSE
 	update_visuals()
 
-	current_cycle = time
-
-	init_immediate_calculate_adjacent_turfs()
-	for(var/turf/open/enemy_tile as anything in atmos_adjacent_turfs)
-		if(air.compare(enemy_tile.return_air()))
+	current_cycle = times_fired
+	immediate_calculate_adjacent_turfs()
+	for(var/i in atmos_adjacent_turfs)
+		var/turf/open/enemy_tile = i
+		var/datum/gas_mixture/enemy_air = enemy_tile.return_air()
+		if(!excited && air.compare(enemy_air))
 			//testing("Active turf found. Return value of compare(): [is_active]")
 			excited = TRUE
 			SSair.active_turfs += src
-			// No sense continuing to iterate
-			return
 
 /turf/open/GetHeatCapacity()
 	. = air.heat_capacity()

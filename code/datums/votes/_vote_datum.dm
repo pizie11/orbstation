@@ -13,8 +13,6 @@
 	var/vote_sound = 'sound/misc/bloop.ogg'
 	/// A list of default choices we have for this vote.
 	var/list/default_choices
-	/// Does the name of this vote contain the word "vote"?
-	var/contains_vote_in_name = FALSE
 
 	// Internal values used when tracking ongoing votes.
 	// Don't mess with these, change the above values / override procs for subtypes.
@@ -105,7 +103,7 @@
 	started_time = world.time
 	time_remaining = round(duration / 10)
 
-	return "[contains_vote_in_name ? "[capitalize(name)]" : "[capitalize(name)] vote"] started by [initiator || "Central Command"]."
+	return "[capitalize(name)] vote started by [initiator || "Central Command"]."
 
 /**
  * Gets the result of the vote.

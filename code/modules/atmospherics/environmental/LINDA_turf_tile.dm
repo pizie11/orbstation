@@ -56,7 +56,8 @@
 
 /turf/open/Initialize(mapload)
 	if(!blocks_air)
-		air = create_gas_mixture()
+		air = new
+		air.copy_from_turf(src)
 		if(planetary_atmos)
 			if(!SSair.planetary[initial_gas_mix])
 				var/datum/gas_mixture/immutable/planetary/mix = new
@@ -73,18 +74,6 @@
 	return ..()
 
 /////////////////GAS MIXTURE PROCS///////////////////
-
-///Copies all gas info from the turf into a new gas_mixture, along with our temperature
-///Returns the created gas_mixture
-/turf/proc/create_gas_mixture()
-	var/datum/gas_mixture/mix = SSair.parse_gas_string(initial_gas_mix)
-
-	//acounts for changes in temperature
-	var/turf/parent = parent_type
-	if(temperature != initial(temperature) || temperature != initial(parent.temperature))
-		mix.temperature = temperature
-
-	return mix
 
 /turf/open/assume_air(datum/gas_mixture/giver) //use this for machines to adjust air
 	if(!giver)
@@ -111,7 +100,8 @@
 
 /turf/return_air()
 	RETURN_TYPE(/datum/gas_mixture)
-	var/datum/gas_mixture/copied_mixture = create_gas_mixture()
+	var/datum/gas_mixture/copied_mixture = new
+	copied_mixture.copy_from_turf(src)
 	return copied_mixture
 
 /turf/open/return_air()

@@ -4,7 +4,6 @@
 	opacity = TRUE
 	density = TRUE
 	blocks_air = TRUE
-	init_air = FALSE
 	rad_insulation = RAD_MEDIUM_INSULATION
 	pass_flags_self = PASSCLOSEDTURF
 

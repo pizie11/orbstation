@@ -50,10 +50,6 @@
 
 	return ..()
 
-/mob/New()
-	// This needs to happen IMMEDIATELY. I'm sorry :(
-	GenerateTag()
-	return ..()
 
 /**
  * Intialize a mob
@@ -101,7 +97,6 @@
  * This is simply "mob_"+ a global incrementing counter that goes up for every mob
  */
 /mob/GenerateTag()
-	. = ..()
 	tag = "mob_[next_mob_id++]"
 
 /**

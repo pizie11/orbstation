@@ -43,23 +43,10 @@
 	RefreshParts()
 	update_icon(UPDATE_OVERLAYS)
 
-	RegisterSignal(
-		stored_research,
-		list(COMSIG_TECHWEB_ADD_DESIGN, COMSIG_TECHWEB_REMOVE_DESIGN),
-		.proc/on_techweb_update
-	)
-
 /obj/machinery/rnd/production/Destroy()
 	materials = null
 	cached_designs = null
 	return ..()
-
-/obj/machinery/rnd/production/proc/on_techweb_update()
-	SIGNAL_HANDLER
-
-	// We're probably going to get more than one update (design) at a time, so batch
-	// them together.
-	addtimer(CALLBACK(src, .proc/update_designs), 0.25 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /// Updates the list of designs this fabricator can print.
 /obj/machinery/rnd/production/proc/update_designs()
@@ -71,13 +58,15 @@
 		if((isnull(allowed_department_flags) || (design.departmental_flags & allowed_department_flags)) && (design.build_type & allowed_buildtypes))
 			cached_designs |= design
 
-	update_static_data_for_all_viewers()
+	update_static_data(usr)
+
+	say("Successfully synchronized with R&D server.")
 
 /obj/machinery/rnd/production/RefreshParts()
 	. = ..()
 
 	calculate_efficiency()
-	update_static_data_for_all_viewers()
+	update_static_data(usr)
 
 /obj/machinery/rnd/production/ui_assets(mob/user)
 	return list(
@@ -144,6 +133,9 @@
 				return
 
 			eject_sheets(material, params["amount"])
+
+		if("sync_rnd")
+			update_designs()
 
 		if("build")
 			user_try_print_id(params["ref"], params["amount"])

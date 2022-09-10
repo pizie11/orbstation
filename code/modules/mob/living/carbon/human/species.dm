@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/gib_anim = "gibbed-h"
 
 
-	//Do NOT remove by setting to null. use OR make an ASSOCIATED TRAIT.
+	//Do NOT remove by setting to null. use OR make a RESPECTIVE TRAIT (removing stomach? add the NOSTOMACH trait to your species)
 	//why does it work this way? because traits also disable the downsides of not having an organ, removing organs but not having the trait will make your species die
 
 	///Replaces default brain with a different organ

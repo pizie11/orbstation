@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
-	shuttle_id = "cargo"
+	id = "supply"
 	callTime = 600
 
 	dir = WEST
@@ -79,13 +79,13 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	return ..()
 
 /obj/docking_port/mobile/supply/initiate_docking()
-	if(getDockedId() == "cargo_away") // Buy when we leave home.
+	if(getDockedId() == "supply_away") // Buy when we leave home.
 		buy()
 		create_mail()
 	. = ..() // Fly/enter transit.
 	if(. != DOCKING_SUCCESS)
 		return
-	if(getDockedId() == "cargo_away") // Sell when we get home
+	if(getDockedId() == "supply_away") // Sell when we get home
 		sell()
 
 /obj/docking_port/mobile/supply/proc/buy()

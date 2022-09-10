@@ -203,7 +203,7 @@
 
 /obj/docking_port/mobile/pirate
 	name = "pirate shuttle"
-	shuttle_id = "pirate"
+	id = "pirateship"
 	rechargeTime = 3 MINUTES
 
 /obj/machinery/suit_storage_unit/pirate

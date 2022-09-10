@@ -284,9 +284,7 @@
 				++cultplayers
 			else
 				++alive
-
-	ASSERT(cultplayers) //we shouldn't be here.
-	var/ratio = alive ? cultplayers/alive : 1
+	var/ratio = cultplayers/alive
 	if(ratio > CULT_RISEN && !cult_risen)
 		for(var/datum/mind/mind as anything in members)
 			if(mind.current)
