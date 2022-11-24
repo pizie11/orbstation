@@ -121,6 +121,7 @@
 		"rat_snout" = pick(GLOB.rat_snouts_list),
 		"rat_tail" = pick(GLOB.rat_tails_list),
 		"rat_ears" = pick(GLOB.rat_ears_list),
+		"limb_fur" = pick(GLOB.limb_fur_list)
 	))
 
 /proc/random_hairstyle(gender)

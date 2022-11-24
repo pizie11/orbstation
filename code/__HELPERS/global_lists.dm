@@ -36,6 +36,8 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/rat_snouts, GLOB.rat_snouts_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/rat, GLOB.rat_tails_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/rat_ears, GLOB.rat_ears_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/limb_fur, GLOB.limb_fur_list, add_blank = TRUE)
+
 
 	//Species
 	for(var/spath in subtypesof(/datum/species))

@@ -725,6 +725,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					accessory = GLOB.caps_list[source.dna.features["caps"]]
 				if("rat_ears") // ORBSTATION
 					accessory = GLOB.rat_ears_list[source.dna.features["rat_ears"]]
+				if("limb_fur") // ORBSTATION
+					accessory = GLOB.limb_fur_list[source.dna.features["limb_fur"]]
 
 			if(!accessory || accessory.icon_state == "none")
 				continue

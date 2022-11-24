@@ -10,22 +10,20 @@
 		'orbstation/sound/voice/felinid/scream2.ogg',
 	)
 
-init_sprite_accessory_subtypes(/datum/sprite_accessory/felind_limb_fur, GLOB.limbfur_list, add_blank = TRUE)
-
-/datum/preference/choiced/felind_limb_fur
-	savefile_key = "feature_felind_limb_fur"
+/datum/preference/choiced/limb_fur
+	savefile_key = "feature_limb_fur"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	main_feature_name = "Limb Fur"
 	relevant_mutant_bodypart = "limb_fur"
 
-/datum/preference/choiced/felind_limb_fur/init_possible_values()
-	return assoc_to_keys(GLOB.limbfur_list)
+/datum/preference/choiced/limb_fur/init_possible_values()
+	return assoc_to_keys(GLOB.limb_fur_list)
 
-/datum/preference/choiced/felind_limb_fur/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/limb_fur/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["limb_fur"] = value
 
-/datum/preference/choiced/felind_limb_fur/compile_constant_data()
+/datum/preference/choiced/limb_fur/compile_constant_data()
 	var/list/data = ..()
 
 	data[SUPPLEMENTAL_FEATURE_KEY] = "facial_hair_color"

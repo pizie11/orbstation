@@ -89,3 +89,8 @@ export const feature_pod_blood: Feature<string> = {
   name: 'Podperson blood',
   component: FeatureDropdownInput,
 };
+
+export const feature_limb_fur: Feature<string> = {
+  name: 'Felind Fur',
+  component: FeatureDropdownInput,
+};

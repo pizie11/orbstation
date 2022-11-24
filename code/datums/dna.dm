@@ -227,6 +227,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		L[DNA_RAT_TAIL_BLOCK] = construct_block(GLOB.rat_tails_list.Find(features["rat_tail"]), GLOB.rat_tails_list.len)
 	if(features["rat_ears"])
 		L[DNA_RAT_EARS_BLOCK] = construct_block(GLOB.rat_ears_list.Find(features["rat_ears"]), GLOB.rat_ears_list.len)
+	if(features["limb_fur"])
+		L[DNA_LIMB_FUR_BLOCK] = construct_block(GLOB.limb_fur_list.Find(features["limb_fur"]), GLOB.limb_fur_list.len)
 
 	for(var/blocknum in 1 to DNA_FEATURE_BLOCKS)
 		. += L[blocknum] || random_string(GET_UI_BLOCK_LEN(blocknum), GLOB.hex_characters)
