@@ -89,6 +89,5 @@
 	worn_icon = 'orbstation/icons/mob/clothing/suit.dmi'
 	name = "head of security's white winter trenchcoat"
 	desc = "A trenchcoat enhanced with a special lightweight kevlar, padded with wool on the collar and inside. You feel strangely hopeful wearing this coat."
-	icon_state = "labcoat"
-	inhand_icon_state = "hoswinter_white"
+	inhand_icon_state = "labcoat"
 
