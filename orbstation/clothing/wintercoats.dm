@@ -83,3 +83,11 @@
 	worn_icon = 'orbstation/icons/mob/clothing/head.dmi'
 	desc = "A coat hood dotted with stars."
 	icon_state = "winterhood_cosmic"
+
+/obj/item/clothing/suit/armor/hos/trenchcoat/winter/white
+	icon = 'orbstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'orbstation/icons/mob/clothing/suit.dmi'
+	name = "head of security's white winter trenchcoat"
+	desc = "A trenchcoat enhanced with a special lightweight kevlar, padded with wool on the collar and inside. You feel strangely hopeful wearing this coat."
+	icon_state = "hoswinter_white"
+
