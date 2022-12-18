@@ -14,6 +14,11 @@
 	icon = 'orbstation/icons/mob/species/felind/bodyparts.dmi'
 	icon_state = "cat_short"
 
+/datum/sprite_accessory/tails/human/cat/fluffy
+	name = "Fluffy Cat"
+	icon = 'orbstation/icons/mob/species/felind/bodyparts.dmi'
+	icon_state = "cat_fluffy"
+
 /// Orb modified nekomimetic to felimimetic, anything dealing with the language in flavourtext is overriden here if possible
 /datum/language/nekomimetic
 	name = "Felimimetic"
