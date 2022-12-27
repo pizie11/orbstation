@@ -19,7 +19,7 @@
 	if(!landing_area)
 		return
 	var/obj/structure/carp_rift/minor/rift = new (landing_area)
-	new /mob/living/simple_animal/hostile/carp/megacarp(landing_area)
+	new /mob/living/basic/carp/mega(landing_area)
 	announce_to_ghosts(rift)
 
 /datum/round_event/carp_rift/announce(fake)
@@ -31,7 +31,7 @@
  * Conversely because there's fewer ghosts it also summons a handful of NPC carp.
  */
 /obj/structure/carp_rift/minor
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
+	armor_type = /datum/armor/none
 	max_charge = INFINITY
 
 /obj/structure/carp_rift/minor/Initialize(mapload)

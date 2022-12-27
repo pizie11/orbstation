@@ -35,17 +35,36 @@
 	do_sparks(5, FALSE, src)
 
 /obj/structure/dancing_pole/attack_hand(mob/living/carbon/human/user, list/modifiers)
+	return try_to_dance(user)
+
+/obj/structure/dancing_pole/attack_basic_mob(mob/living/basic/user, list/modifiers)
+	if (!try_to_dance(user))
+		return ..()
+
+/obj/structure/dancing_pole/attack_drone(mob/living/simple_animal/drone/user, list/modifiers)
+	return try_to_dance(user)
+
+/obj/structure/dancing_pole/attack_alien(mob/living/carbon/alien/adult/user, list/modifiers)
+	return try_to_dance(user)
+
+/obj/structure/dancing_pole/attack_animal(mob/living/simple_animal/user, list/modifiers)
+	return try_to_dance(user)
+
+/**
+ * Checks if the user can dance right now.
+ */
+/obj/structure/dancing_pole/proc/try_to_dance(mob/living/user)
 	if (!anchored)
 		balloon_alert(user, "pole isn't anchored")
-		return
+		return FALSE
 	if (dancer?.resolve())
 		balloon_alert(user, "already occupied")
-		return
+		return TRUE
 	if (HAS_TRAIT(user, TRAIT_IMMOBILIZED))
 		balloon_alert(user, "too tired")
-		return
-
+		return TRUE
 	dance(user)
+	return TRUE
 
 /**
  * The user will dance for 10 seconds, as long as they don't try to do anything else with their hands.
@@ -56,7 +75,7 @@
  * Arguments
  * * user - Human who is using the pole.
  */
-/obj/structure/dancing_pole/proc/dance(mob/living/carbon/human/user)
+/obj/structure/dancing_pole/proc/dance(mob/living/user)
 	var/last_loc = user.loc
 	user.forceMove(loc)
 
@@ -129,7 +148,7 @@
 	)
 
 /// Applies a layer and positional offset based upon current facing direction.
-/obj/structure/dancing_pole/proc/apply_dir(mob/living/carbon/human/dancer, dir)
+/obj/structure/dancing_pole/proc/apply_dir(mob/living/dancer, dir)
 	if (dir == SOUTH)
 		dancer.plane = GAME_PLANE
 	else

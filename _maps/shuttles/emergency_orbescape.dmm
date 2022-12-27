@@ -96,11 +96,12 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle)
 "A" = (
-/obj/machinery/door/airlock/command/glass,
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/docking_port/mobile/emergency/shuttle_build{
 	dir = 1;
 	name = "orb emergency shuttle escape shuttle"
+	},
+/obj/machinery/door/airlock/shuttle{
+	name = "Emergency Shuttle Airlock"
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle)

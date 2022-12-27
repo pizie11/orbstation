@@ -26,6 +26,10 @@
 	. = ..()
 	player_mobs -= gone
 
+// You can't attack this but monsters which fall in will try anyway
+/obj/effect/abstract/chasm_storage/attack_generic(mob/user, damage_amount, damage_type, damage_flag, sound_effect, armor_penetration)
+	return FALSE
+
 /// 40% of the time fish up a player corpse if one exists
 /obj/item/chasm_detritus/Initialize(mapload)
 	if (prob(40) && retrieve_player_body())
